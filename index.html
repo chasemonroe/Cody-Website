@@ -1,0 +1,1280 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>C AND J DEEP REMODELS</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome (social icons) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+    <!-- jQuery (required for carousel logic below) -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <style>
+        :root {
+            --navy: #0b1f3a;
+            --navy-2: #0f2c52;
+            --light: #f6f8fb;
+            --sky: #d7e9f6;
+            --tan: #d8c3a5;
+            --ink: #0e1623;
+            --muted: #6a778a;
+            --card: #ffffff;
+            --shadow: 0 12px 30px rgba(11, 31, 58, .12);
+            --ring: 0 0 0 4px rgba(215, 233, 246, .8);
+            --radius: 18px;
+            --max: 1120px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            margin: 0;
+            font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+            color: var(--ink);
+            background:
+                radial-gradient(1200px 500px at 20% -10%, rgba(215, 233, 246, .75), transparent 60%),
+                radial-gradient(900px 400px at 90% 10%, rgba(216, 195, 165, .45), transparent 55%),
+                var(--light);
+            overflow-x: hidden;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .container {
+            width: min(var(--max), calc(100% - 40px));
+            margin: 0 auto;
+        }
+
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            gap: .5rem;
+            padding: .55rem .85rem;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, .75);
+            border: 1px solid rgba(11, 31, 58, .10);
+            box-shadow: 0 8px 18px rgba(11, 31, 58, .06);
+            backdrop-filter: blur(8px);
+            font-weight: 600;
+            color: var(--navy);
+        }
+
+        /* Header / Nav */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(246, 248, 251, .72);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(11, 31, 58, .08);
+        }
+
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 0;
+            gap: 16px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 220px;
+        }
+
+        .brand-mark {
+            width: 40px;
+            height: 40px;
+            border-radius: 14px;
+            background:
+                radial-gradient(14px 14px at 30% 30%, rgba(215, 233, 246, 1), rgba(215, 233, 246, .0)),
+                linear-gradient(140deg, var(--navy), var(--navy-2));
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(255, 255, 255, .45);
+        }
+
+        .brand h1 {
+            font-size: 1rem;
+            margin: 0;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            color: var(--navy);
+            line-height: 1.1;
+        }
+
+        .brand small {
+            display: block;
+            color: var(--muted);
+            font-weight: 600;
+            letter-spacing: .02em;
+            margin-top: 2px;
+            text-transform: none;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        nav a {
+            display: inline-flex;
+            padding: .6rem .85rem;
+            border-radius: 999px;
+            font-weight: 600;
+            color: rgba(11, 31, 58, .88);
+            transition: transform .15s ease, background .15s ease, box-shadow .15s ease;
+        }
+
+        nav a:hover {
+            background: rgba(215, 233, 246, .8);
+            box-shadow: 0 10px 22px rgba(11, 31, 58, .10);
+            transform: translateY(-1px);
+        }
+
+        .nav-cta {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: .55rem;
+            padding: .7rem 1rem;
+            border-radius: 999px;
+            border: 1px solid rgba(11, 31, 58, .12);
+            background: rgba(255, 255, 255, .8);
+            box-shadow: 0 10px 22px rgba(11, 31, 58, .08);
+            font-weight: 700;
+            transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 14px 28px rgba(11, 31, 58, .12);
+            background: #fff;
+        }
+
+        .btn-primary {
+            border-color: rgba(11, 31, 58, .14);
+            background: linear-gradient(140deg, var(--navy), var(--navy-2));
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            filter: brightness(1.05);
+            box-shadow: 0 16px 34px rgba(11, 31, 58, .18);
+        }
+
+        /* Hamburger */
+        .hamburger {
+            display: none;
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            border: 1px solid rgba(11, 31, 58, .14);
+            background: rgba(255, 255, 255, .75);
+            box-shadow: 0 10px 22px rgba(11, 31, 58, .08);
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 20px;
+            height: 2px;
+            background: var(--navy);
+            border-radius: 999px;
+            position: relative;
+            transition: transform .2s ease, top .2s ease, opacity .2s ease;
+        }
+
+        .hamburger span::before,
+        .hamburger span::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            width: 20px;
+            height: 2px;
+            background: var(--navy);
+            border-radius: 999px;
+            transition: transform .2s ease, top .2s ease, opacity .2s ease;
+        }
+
+        .hamburger span::before {
+            top: -6px;
+        }
+
+        .hamburger span::after {
+            top: 6px;
+        }
+
+        .hamburger.is-open span {
+            background: transparent;
+        }
+
+        .hamburger.is-open span::before {
+            top: 0;
+            transform: rotate(45deg);
+        }
+
+        .hamburger.is-open span::after {
+            top: 0;
+            transform: rotate(-45deg);
+        }
+
+        /* Mobile menu panel */
+        .mobile-panel {
+            display: none;
+            padding: 10px 0 18px;
+        }
+
+        .mobile-panel .panel {
+            border-radius: var(--radius);
+            background: rgba(255, 255, 255, .78);
+            border: 1px solid rgba(11, 31, 58, .10);
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(10px);
+            padding: 12px;
+        }
+
+        .mobile-panel a {
+            display: flex;
+            padding: 12px 12px;
+            border-radius: 14px;
+            font-weight: 700;
+            color: var(--navy);
+            background: transparent;
+        }
+
+        .mobile-panel a:hover {
+            background: rgba(215, 233, 246, .75);
+        }
+
+        /* Hero */
+        .hero {
+            padding: 46px 0 18px;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.2fr .8fr;
+            gap: 18px;
+            align-items: stretch;
+        }
+
+        .hero-card {
+            border-radius: calc(var(--radius) + 8px);
+            background: linear-gradient(135deg, rgba(255, 255, 255, .9), rgba(255, 255, 255, .72));
+            border: 1px solid rgba(11, 31, 58, .10);
+            box-shadow: var(--shadow);
+            padding: 28px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-card::before {
+            content: "";
+            position: absolute;
+            inset: -2px;
+            background: radial-gradient(520px 260px at 20% 20%, rgba(215, 233, 246, .9), transparent 55%),
+                radial-gradient(520px 260px at 90% 10%, rgba(216, 195, 165, .55), transparent 55%);
+            pointer-events: none;
+        }
+
+        .hero-card>* {
+            position: relative;
+        }
+
+        .hero h2 {
+            margin: 12px 0 10px;
+            font-size: clamp(1.8rem, 4vw, 2.7rem);
+            letter-spacing: -0.02em;
+            color: var(--navy);
+            line-height: 1.05;
+        }
+
+        .hero p {
+            margin: 0 0 18px;
+            color: rgba(14, 22, 35, .78);
+            font-size: 1.05rem;
+            line-height: 1.6;
+            max-width: 62ch;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .hero-side {
+            border-radius: calc(var(--radius) + 8px);
+            background: linear-gradient(140deg, var(--navy), var(--navy-2));
+            box-shadow: 0 18px 40px rgba(11, 31, 58, .22);
+            color: #fff;
+            padding: 24px;
+            border: 1px solid rgba(255, 255, 255, .18);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-side::after {
+            content: "";
+            position: absolute;
+            inset: -30px;
+            background: radial-gradient(420px 220px at 10% 20%, rgba(215, 233, 246, .35), transparent 60%),
+                radial-gradient(520px 260px at 100% 0%, rgba(216, 195, 165, .25), transparent 60%);
+            pointer-events: none;
+            transform: rotate(6deg);
+        }
+
+        .hero-side>* {
+            position: relative;
+        }
+
+        .hero-side h3 {
+            margin: 0 0 8px;
+            font-size: 1.15rem;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+            opacity: .95;
+        }
+
+        .hero-side .callout {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 12px;
+            padding-top: 14px;
+            border-top: 1px solid rgba(255, 255, 255, .18);
+        }
+
+        .hero-side .callout a {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+            letter-spacing: .01em;
+            font-size: 1.05rem;
+        }
+
+        .hero-side .callout a:hover {
+            text-decoration: underline;
+        }
+
+        .hero-side .mini {
+            color: rgba(255, 255, 255, .82);
+            line-height: 1.5;
+            font-weight: 600;
+        }
+
+        /* Sections */
+        section {
+            padding: 28px 0;
+            scroll-margin-top: 90px;
+            /* ensures anchor scroll doesn't hide behind sticky nav */
+        }
+
+        .section-head {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 14px;
+            margin-bottom: 14px;
+        }
+
+        .section-head h3 {
+            margin: 0;
+            font-size: 1.6rem;
+            letter-spacing: -0.01em;
+            color: var(--navy);
+        }
+
+        .section-head p {
+            margin: 0;
+            color: var(--muted);
+            font-weight: 600;
+            max-width: 62ch;
+            line-height: 1.5;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+            align-items: start;
+        }
+
+        .card {
+            border-radius: var(--radius);
+            background: rgba(255, 255, 255, .86);
+            border: 1px solid rgba(11, 31, 58, .10);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .card-pad {
+            padding: 18px;
+        }
+
+        .list {
+            margin: 0;
+            padding-left: 1.1rem;
+            color: rgba(14, 22, 35, .80);
+            line-height: 1.7;
+            font-weight: 500;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .tag {
+            font-weight: 700;
+            font-size: .9rem;
+            padding: .45rem .7rem;
+            border-radius: 999px;
+            background: rgba(215, 233, 246, .8);
+            border: 1px solid rgba(11, 31, 58, .10);
+            color: var(--navy);
+        }
+
+        .tag.tan {
+            background: rgba(216, 195, 165, .35);
+        }
+
+        /* Carousel */
+        .carousel {
+            position: relative;
+            border-radius: var(--radius);
+            overflow: hidden;
+            background: #e9eff7;
+            border: 1px solid rgba(11, 31, 58, .10);
+        }
+
+        .carousel-track {
+            display: flex;
+            width: 100%;
+            transform: translateX(0);
+            transition: transform .45s cubic-bezier(.2, .8, .2, 1);
+        }
+
+        .slide {
+            min-width: 100%;
+            height: 340px;
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-start;
+            color: #fff;
+        }
+
+        .slide::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(11, 31, 58, .65), rgba(11, 31, 58, .08) 55%, rgba(11, 31, 58, 0));
+            pointer-events: none;
+        }
+
+        .slide .caption {
+            position: relative;
+            margin: 16px;
+            padding: 10px 12px;
+            border-radius: 14px;
+            background: rgba(11, 31, 58, .55);
+            border: 1px solid rgba(255, 255, 255, .22);
+            backdrop-filter: blur(8px);
+            font-weight: 800;
+            letter-spacing: .01em;
+            max-width: 85%;
+        }
+
+        .slide img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: saturate(1.02) contrast(1.02);
+        }
+
+        .car-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 42px;
+            height: 42px;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, .35);
+            background: rgba(255, 255, 255, .20);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            transition: transform .15s ease, background .15s ease;
+            z-index: 2;
+        }
+
+        .car-btn:hover {
+            background: rgba(255, 255, 255, .28);
+            transform: translateY(-50%) scale(1.03);
+        }
+
+        .car-prev {
+            left: 12px;
+        }
+
+        .car-next {
+            right: 12px;
+        }
+
+        .dots {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 12px;
+            display: flex;
+            gap: 8px;
+            z-index: 2;
+            padding: 8px 10px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, .22);
+            border: 1px solid rgba(255, 255, 255, .28);
+            backdrop-filter: blur(10px);
+        }
+
+        .dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, .55);
+            border: 1px solid rgba(11, 31, 58, .12);
+            cursor: pointer;
+            transition: transform .15s ease, background .15s ease;
+        }
+
+        .dot.is-active {
+            background: rgba(215, 233, 246, .95);
+            transform: scale(1.18);
+            box-shadow: var(--ring);
+        }
+
+        /* Contact */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1.1fr .9fr;
+            gap: 18px;
+            align-items: stretch;
+        }
+
+        .contact-card a:hover {
+            text-decoration: underline;
+        }
+
+        .contact-line {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            border-radius: 14px;
+            background: rgba(215, 233, 246, .55);
+            border: 1px solid rgba(11, 31, 58, .10);
+            font-weight: 800;
+            color: var(--navy);
+            margin: 10px 0;
+        }
+
+        /* Footer */
+        footer {
+            padding: 26px 0 34px;
+            color: rgba(14, 22, 35, .70);
+        }
+
+        .footer-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            border-top: 1px solid rgba(11, 31, 58, .10);
+            padding-top: 16px;
+            flex-wrap: wrap;
+        }
+
+        .social {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .icon-btn {
+            width: 42px;
+            height: 42px;
+            border-radius: 14px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, .8);
+            border: 1px solid rgba(11, 31, 58, .10);
+            box-shadow: 0 10px 22px rgba(11, 31, 58, .08);
+            transition: transform .15s ease, box-shadow .15s ease;
+        }
+
+        .icon-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 14px 28px rgba(11, 31, 58, .12);
+        }
+
+        /* Fade-in transitions */
+        .reveal {
+            opacity: 0;
+            transform: translateY(14px);
+            transition: opacity .6s ease, transform .6s ease;
+        }
+
+        .reveal.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 920px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .slide {
+                height: 300px;
+            }
+
+            .brand {
+                min-width: unset;
+            }
+        }
+
+        @media (max-width: 760px) {
+            nav {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .mobile-panel {
+                display: block;
+            }
+
+            .nav-cta .btn {
+                padding: .65rem .9rem;
+            }
+
+            .hero-card {
+                padding: 22px;
+            }
+
+            .hero-side {
+                padding: 20px;
+            }
+
+            .slide {
+                height: 260px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <div class="nav-inner">
+                <div class="brand">
+                    <div class="brand-mark" aria-hidden="true"></div>
+                    <div>
+                        <h1>C AND J DEEP REMODELS</h1>
+                        <small>Fencing and bath remodels</small>
+                    </div>
+                </div>
+
+                <!-- Desktop Nav -->
+                <nav aria-label="Main navigation">
+                    <ul>
+                        <li><a href="#home" class="nav-link">Home</a></li>
+                        <li><a href="#bathroom" class="nav-link">Bathroom Remodels</a></li>
+                        <li><a href="#fencing" class="nav-link">Fencing</a></li>
+                        <li><a href="#about" class="nav-link">About</a></li>
+                        <li><a href="#contact" class="nav-link">Contact</a></li>
+                    </ul>
+                </nav>
+
+                <div class="nav-cta">
+                    <a class="btn btn-primary" href="tel:912-722-8006">
+                        <i class="fa-solid fa-phone"></i>
+                        Free Estimate: 912-722-8006
+                    </a>
+
+                    <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+                        <span></span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Panel -->
+            <div class="mobile-panel" id="mobilePanel" style="display:none;">
+                <div class="panel">
+                    <a href="#home" class="nav-link">Home</a>
+                    <a href="#bathroom" class="nav-link">Bathroom Remodels</a>
+                    <a href="#fencing" class="nav-link">Fencing</a>
+                    <a href="#about" class="nav-link">About</a>
+                    <a href="#contact" class="nav-link">Contact</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO / HOME -->
+    <main id="home" class="hero">
+        <div class="container">
+            <div class="hero-grid">
+                <div class="hero-card reveal">
+                    <span class="pill"><i class="fa-solid fa-sparkles"></i> Sleek. Clean. Built to last.</span>
+                    <h2>Bathroom & Fence Remodels that feel premium—without the stress.</h2>
+                    <p>
+                        C AND J DEEP REMODELS delivers clean installs, thoughtful finishes, and a smooth process.
+                        From modern bathroom updates to durable fencing, we keep it simple, classy, and reliable.
+                    </p>
+                    <div class="hero-actions">
+                        <a class="btn btn-primary" href="tel:912-722-8006">
+                            <i class="fa-solid fa-phone"></i> Call 912-722-8006
+                        </a>
+                        <a class="btn" href="#bathroom">
+                            <i class="fa-solid fa-bath"></i> View Bathroom Work
+                        </a>
+                        <a class="btn" href="#fencing">
+                            <i class="fa-solid fa-people-roof"></i> View Fencing Work
+                        </a>
+                    </div>
+                    <div class="tags">
+                        <span class="tag">Free Estimates</span>
+                        <span class="tag tan">Quality Materials</span>
+                        <span class="tag">Clean Finish</span>
+                        <span class="tag tan">Fast Communication</span>
+                    </div>
+                </div>
+
+                <aside class="hero-side reveal">
+                    <h3>For a Free Estimate</h3>
+                    <div class="mini">
+                        Call or email us and we’ll help you plan a clean, durable remodel with a modern look.
+                    </div>
+                    <div class="card reveal" style="margin-top:18px;">
+                        <div style="padding:14px;">
+                            <img src="./assets/BusinessCard.jpg" alt="C AND J DEEP REMODELS Business Card"
+                                style="width:100%; height:auto; border-radius:14px; border:1px solid rgba(11,31,58,.10); box-shadow: 0 12px 30px rgba(11,31,58,.10);">
+                        </div>
+                    </div>
+
+                    <div class="callout">
+                        <a href="tel:912-722-8006"><i class="fa-solid fa-phone"></i> 912-722-8006</a>
+                        <a href="mailto:candjdeepremodels@gmail.com"><i class="fa-solid fa-envelope"></i>
+                            candjdeepremodels@gmail.com</a>
+                        <div class="mini">
+                            Quick response • Clear quote • Professional finish
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </main>
+
+    <!-- BATHROOM -->
+    <section id="bathroom">
+        <div class="container">
+            <div class="section-head reveal">
+                <div>
+                    <h3>Bathroom Remodels</h3>
+                    <p>Modern refreshes, clean tile work, fixtures, and finishes that look sharp and feel built right.
+                    </p>
+                </div>
+                <a class="btn" href="tel:912-722-8006"><i class="fa-solid fa-phone"></i> Free Estimate</a>
+            </div>
+
+            <div class="grid-2">
+                <div class="card reveal">
+                    <div class="carousel" data-carousel="bath">
+                        <div class="carousel-track">
+                            <div class="slide">
+                                <img src="./assets/Bathroom1.jpg" alt="Bathroom remodel 1">
+                                <div class="caption">Bathroom Remodel</div>
+                            </div>
+                            <div class="slide">
+                                <img src="./assets/Bathroom2.jpg" alt="Bathroom remodel 2">
+                                <div class="caption">Bathroom Remodel</div>
+                            </div>
+                            <div class="slide">
+                                <img src="./assets/Bathroom3.jpg" alt="Bathroom remodel 3">
+                                <div class="caption">Bathroom Remodel</div>
+                            </div>
+
+                            <div class="slide">
+                                <img src="./assets/Shower1.jpg" alt="Shower remodel 1">
+                                <div class="caption">Shower Remodel</div>
+                            </div>
+                            <div class="slide">
+                                <img src="./assets/Shower2.jpg" alt="Shower remodel 2">
+                                <div class="caption">Shower Remodel</div>
+                            </div>
+                            <div class="slide">
+                                <img src="./assets/Shower3.jpg" alt="Shower remodel 3">
+                                <div class="caption">Shower Remodel</div>
+                            </div>
+                            <div class="slide">
+                                <img src="./assets/Shower4.jpg" alt="Shower remodel 4">
+                                <div class="caption">Shower Remodel</div>
+                            </div>
+                            <div class="slide">
+                                <img src="./assets/Shower5.jpg" alt="Shower remodel 5">
+                                <div class="caption">Shower Remodel</div>
+                            </div>
+                            <div class="slide">
+                                <img src="./assets/Shower6.jpg" alt="Shower remodel 6">
+                                <div class="caption">Shower Remodel</div>
+                            </div>
+                            <div class="slide">
+                                <img src="./assets/Shower7.jpg" alt="Shower remodel 7">
+                                <div class="caption">Shower Remodel</div>
+                            </div>
+                        </div>
+
+                        <button class="car-btn car-prev" aria-label="Previous slide"><i
+                                class="fa-solid fa-chevron-left"></i></button>
+                        <button class="car-btn car-next" aria-label="Next slide"><i
+                                class="fa-solid fa-chevron-right"></i></button>
+                        <div class="dots" aria-label="Carousel dots"></div>
+                    </div>
+                </div>
+
+                <div class="card reveal">
+                    <div class="card-pad">
+                        <h4 style="margin:0 0 10px; color: var(--navy); font-size: 1.2rem;">What we can help with</h4>
+                        <ul class="list">
+                            <li>Full bathroom remodels & refreshes</li>
+                            <li>Tile, flooring, and shower surrounds</li>
+                            <li>Vanities, fixtures, lighting, paint</li>
+                            <li>Clean lines, minimal look, durable finish</li>
+                        </ul>
+
+                        <div class="tags">
+                            <span class="tag">Modern Style</span>
+                            <span class="tag tan">Clean Worksite</span>
+                            <span class="tag">Quality Finish</span>
+                        </div>
+
+                        <div style="margin-top:14px;">
+                            <a class="btn btn-primary" href="#contact"><i class="fa-solid fa-paper-plane"></i> Get a
+                                Quote</a>
+                            <a class="btn" href="tel:912-722-8006" style="margin-left:8px;"><i
+                                    class="fa-solid fa-phone"></i> Call Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FENCING -->
+    <section id="fencing">
+        <div class="container">
+            <div class="section-head reveal">
+                <div>
+                    <h3>Fencing</h3>
+                    <p>Strong, clean installs. Privacy, perimeter, and curb appeal—built to last.</p>
+                </div>
+                <a class="btn" href="tel:912-722-8006"><i class="fa-solid fa-phone"></i> Free Estimate</a>
+            </div>
+
+            <div class="grid-2">
+                <div class="card reveal">
+                    <div class="carousel" data-carousel="fence">
+                        <div class="carousel-track">
+                            <div class="slide">
+                                <img src="./assets/Fence1.jpg" alt="Fence project 1">
+                                <div class="caption">Fence Install</div>
+                            </div>
+                            <div class="slide">
+                                <img src="./assets/Fence2.jpg" alt="Fence project 2">
+                                <div class="caption">Fence Install</div>
+                            </div>
+                            <div class="slide">
+                                <img src="./assets/Fence3.jpg" alt="Fence project 3">
+                                <div class="caption">Fence Install</div>
+                            </div>
+                            <div class="slide">
+                                <img src="./assets/Fence4.jpg" alt="Fence project 4">
+                                <div class="caption">Fence Install</div>
+                            </div>
+                            <div class="slide">
+                                <img src="./assets/Fence5.jpg" alt="Fence project 5">
+                                <div class="caption">Fence Install</div>
+                            </div>
+                            <div class="slide">
+                                <img src="./assets/Fence6.jpg" alt="Fence project 6">
+                                <div class="caption">Fence Install</div>
+                            </div>
+                            <div class="slide">
+                                <img src="./assets/Fence7.jpg" alt="Fence project 7">
+                                <div class="caption">Fence Install</div>
+                            </div>
+                        </div>
+
+                        <button class="car-btn car-prev" aria-label="Previous slide"><i
+                                class="fa-solid fa-chevron-left"></i></button>
+                        <button class="car-btn car-next" aria-label="Next slide"><i
+                                class="fa-solid fa-chevron-right"></i></button>
+                        <div class="dots" aria-label="Carousel dots"></div>
+                    </div>
+                </div>
+
+                <div class="card reveal">
+                    <div class="card-pad">
+                        <h4 style="margin:0 0 10px; color: var(--navy); font-size: 1.2rem;">Fence options</h4>
+                        <ul class="list">
+                            <li>Privacy fencing</li>
+                            <li>Perimeter & yard fencing</li>
+                            <li>Gate installs / repairs</li>
+                            <li>Strong build, clean finish, solid hardware</li>
+                        </ul>
+
+                        <div class="tags">
+                            <span class="tag">Straight & Level</span>
+                            <span class="tag tan">Durable Hardware</span>
+                            <span class="tag">Clean Install</span>
+                        </div>
+
+                        <div style="margin-top:14px;">
+                            <a class="btn btn-primary" href="tel:912-722-8006"><i class="fa-solid fa-phone"></i> Call
+                                for Estimate</a>
+                            <a class="btn" href="#contact" style="margin-left:8px;"><i class="fa-solid fa-envelope"></i>
+                                Email Us</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about">
+        <div class="container">
+            <div class="section-head reveal">
+                <div>
+                    <h3>About</h3>
+                    <p>Minimal. Classy. Professional. We focus on clean work and a smooth experience from quote to
+                        finish.</p>
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <div class="card reveal">
+                    <div class="card-pad">
+                        <h4 style="margin:0 0 10px; color: var(--navy); font-size: 1.2rem;">How we work</h4>
+                        <ul class="list">
+                            <li>Quick scheduling & clear communication</li>
+                            <li>Respectful, clean job sites</li>
+                            <li>Quality materials and finishes</li>
+                            <li>Simple, modern look—done right</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card reveal">
+                    <div class="card-pad">
+                        <h4 style="margin:0 0 10px; color: var(--navy); font-size: 1.2rem;">Service highlights</h4>
+                        <div class="contact-line"><i class="fa-solid fa-check"></i> Free estimates</div>
+                        <div class="contact-line" style="background: rgba(216,195,165,.25);"><i
+                                class="fa-solid fa-check"></i> Modern, sleek finish</div>
+                        <div class="contact-line"><i class="fa-solid fa-check"></i> Reliable scheduling</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+        <div class="container">
+            <div class="section-head reveal">
+                <div>
+                    <h3>Contact Us</h3>
+                    <p>Reach out for a free estimate. Call or email—quick response.</p>
+                </div>
+            </div>
+
+            <div class="contact-grid">
+                <div class="card contact-card reveal">
+                    <div class="card-pad">
+                        <h4 style="margin:0 0 10px; color: var(--navy); font-size: 1.2rem;">Free Estimate</h4>
+
+                        <div class="contact-line">
+                            <i class="fa-solid fa-phone"></i>
+                            <a href="tel:912-722-8006">912-722-8006</a>
+                        </div>
+
+                        <div class="contact-line" style="background: rgba(216,195,165,.25);">
+                            <i class="fa-solid fa-envelope"></i>
+                            <a href="mailto:candjdeepremodels@gmail.com">candjdeepremodels@gmail.com</a>
+                        </div>
+
+                        <p style="margin: 12px 0 0; color: rgba(14,22,35,.78); line-height: 1.6; font-weight: 600;">
+                            Tell us what you’re thinking—bathroom remodel or fencing—and we’ll help you plan the next
+                            step.
+                        </p>
+
+                        <div style="margin-top:14px; display:flex; gap:10px; flex-wrap: wrap;">
+                            <a class="btn btn-primary" href="tel:912-722-8006"><i class="fa-solid fa-phone"></i> Call
+                                Now</a>
+                            <a class="btn" href="mailto:candjdeepremodels@gmail.com"><i
+                                    class="fa-solid fa-envelope"></i> Email Us</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card reveal">
+                    <div class="card-pad">
+                        <h4 style="margin:0 0 10px; color: var(--navy); font-size: 1.2rem;">Social</h4>
+                        <p style="margin:0 0 12px; color: var(--muted); font-weight: 600; line-height: 1.6;">
+                            Add your social links here:
+                        </p>
+
+                        <div class="social">
+                            <!-- Replace href="#" with your real URLs -->
+                            <a class="icon-btn" href="#" aria-label="Facebook"><i
+                                    class="fa-brands fa-facebook-f"></i></a>
+                            <a class="icon-btn" href="#" aria-label="Instagram"><i
+                                    class="fa-brands fa-instagram"></i></a>
+                            <a class="icon-btn" href="#" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+                            <a class="icon-btn" href="#" aria-label="Google"><i class="fa-brands fa-google"></i></a>
+                        </div>
+
+                        <div style="margin-top: 14px;">
+                            <div class="pill"><i class="fa-solid fa-location-dot"></i> Serving your local area</div>
+                        </div>
+
+                        <div style="margin-top: 14px; color: rgba(14,22,35,.78); font-weight: 600; line-height: 1.6;">
+                            Want this to look even more premium? I can add a small “Before / After” toggle and a quote
+                            request form.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-inner">
+                <div style="font-weight:800; color: var(--navy);">
+                    C AND J DEEP REMODELS <span style="color: rgba(11,31,58,.55); font-weight:700;">— Fencing and bath
+                        remodels</span>
+                </div>
+                <div style="display:flex; gap:12px; flex-wrap:wrap; align-items:center;">
+                    <a class="btn" href="tel:912-722-8006"><i class="fa-solid fa-phone"></i> 912-722-8006</a>
+                    <a class="btn" href="#home"><i class="fa-solid fa-arrow-up"></i> Back to top</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ----------------------------------------
+        // Smooth scrolling + close mobile menu
+        // ----------------------------------------
+        function scrollToHash(hash) {
+            const el = document.querySelector(hash);
+            if (!el) return;
+            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // Intercept nav clicks for smooth scrolling
+        $(document).on('click', 'a.nav-link', function (e) {
+            const href = $(this).attr('href');
+            if (href && href.startsWith('#')) {
+                e.preventDefault();
+                scrollToHash(href);
+
+                // Close mobile panel if open
+                closeMobileMenu();
+            }
+        });
+
+        // ----------------------------------------
+        // Mobile hamburger toggle
+        // ----------------------------------------
+        const $hamburger = $('#hamburger');
+        const $mobilePanel = $('#mobilePanel');
+
+        function openMobileMenu() {
+            $hamburger.addClass('is-open').attr('aria-expanded', 'true');
+            $mobilePanel.stop(true, true).slideDown(180);
+        }
+        function closeMobileMenu() {
+            $hamburger.removeClass('is-open').attr('aria-expanded', 'false');
+            $mobilePanel.stop(true, true).slideUp(180);
+        }
+        function toggleMobileMenu() {
+            const isOpen = $hamburger.hasClass('is-open');
+            isOpen ? closeMobileMenu() : openMobileMenu();
+        }
+
+        $hamburger.on('click', toggleMobileMenu);
+
+        // Close on resize back to desktop
+        $(window).on('resize', function () {
+            if (window.innerWidth > 760) closeMobileMenu();
+        });
+
+        // ----------------------------------------
+        // Simple jQuery Carousel (supports multiple)
+        // Markup expects:
+        // .carousel[data-carousel="name"]
+        //   .carousel-track (flex)
+        //   .slide (100% width)
+        //   .car-prev/.car-next
+        //   .dots container
+        // ----------------------------------------
+        function initCarousel($carousel, opts = {}) {
+            const settings = {
+                autoplay: true,
+                autoplayMs: 4500,
+                pauseOnHover: true,
+                ...opts
+            };
+
+            const $track = $carousel.find('.carousel-track');
+            const $slides = $carousel.find('.slide');
+            const $prev = $carousel.find('.car-prev');
+            const $next = $carousel.find('.car-next');
+            const $dots = $carousel.find('.dots');
+
+            let index = 0;
+            let timer = null;
+
+            function clampIndex(i) {
+                const n = $slides.length;
+                if (n <= 0) return 0;
+                return (i % n + n) % n;
+            }
+
+            function goTo(i) {
+                index = clampIndex(i);
+                const x = -index * 100;
+                $track.css('transform', `translateX(${x}%)`);
+
+                // dots
+                $dots.find('.dot').removeClass('is-active').eq(index).addClass('is-active');
+            }
+
+            function buildDots() {
+                $dots.empty();
+                for (let i = 0; i < $slides.length; i++) {
+                    const $d = $('<div class="dot" role="button" tabindex="0" aria-label="Go to slide"></div>');
+                    $d.on('click', () => goTo(i));
+                    $d.on('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') goTo(i); });
+                    $dots.append($d);
+                }
+            }
+
+            function startAutoplay() {
+                if (!settings.autoplay || $slides.length <= 1) return;
+                stopAutoplay();
+                timer = setInterval(() => goTo(index + 1), settings.autoplayMs);
+            }
+
+            function stopAutoplay() {
+                if (timer) clearInterval(timer);
+                timer = null;
+            }
+
+            $prev.on('click', () => goTo(index - 1));
+            $next.on('click', () => goTo(index + 1));
+
+            if (settings.pauseOnHover) {
+                $carousel.on('mouseenter', stopAutoplay);
+                $carousel.on('mouseleave', startAutoplay);
+            }
+
+            // Init
+            buildDots();
+            goTo(0);
+            startAutoplay();
+        }
+
+        // Initialize all carousels on the page
+        $(function () {
+            $('.carousel').each(function () {
+                initCarousel($(this), { autoplay: true, autoplayMs: 4200 });
+            });
+        });
+
+        // ----------------------------------------
+        // Fade-in on scroll (IntersectionObserver)
+        // ----------------------------------------
+        (function () {
+            const els = document.querySelectorAll('.reveal');
+            const io = new IntersectionObserver((entries) => {
+                for (const entry of entries) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        io.unobserve(entry.target);
+                    }
+                }
+            }, { threshold: 0.12 });
+
+            els.forEach(el => io.observe(el));
+        })();
+    </script>
+</body>
+
+</html>
