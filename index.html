@@ -502,6 +502,24 @@
             border: 1px solid rgba(11, 31, 58, .10);
         }
 
+        /* clickable appearance when carousel links to gallery */
+        .carousel.is-link { cursor: pointer; }
+        .carousel.is-link::after{
+          content:"View Full Gallery";
+          position:absolute;
+          right:12px;
+          top:12px;
+          padding:6px 10px;
+          border-radius:999px;
+          background: rgba(11,31,58,.50);
+          border: 1px solid rgba(255,255,255,.22);
+          color:#fff;
+          font-weight:800;
+          font-size:.9rem;
+          backdrop-filter: blur(8px);
+          z-index: 3;
+        }
+
         .carousel-track {
             display: flex;
             width: 100%;
@@ -866,11 +884,10 @@
 
             <div class="grid-2">
                 <div class="card reveal">
-                    <div class="carousel" data-carousel="bath">
+                    <div class="carousel is-link" data-carousel="bath" data-gallery="bathroom">
                         <div class="carousel-track">
                             <div class="slide">
                                 <img src="./assets/Bathroom1.jpg" alt="Bathroom remodel 1">
-                                <div class="caption">Bathroom Remodels</div>
                             </div>
                             <div class="slide">
                                 <img src="./assets/Bathroom2.jpg" alt="Bathroom remodel 2">
@@ -881,7 +898,6 @@
 
                             <div class="slide">
                                 <img src="./assets/Batch2/Shower Remodel 2.jpg" alt="Shower remodel">
-                                <div class="caption">Shower Remodels</div>
                             </div>
                             <div class="slide">
                                 <img src="./assets/Batch2/Shower Remodel 3.jpg" alt="Shower remodel">
@@ -910,7 +926,6 @@
                         
                             <div class="slide">
                                 <img src="./assets/Shower1.jpg" alt="Shower remodel 1">
-                                <div class="caption">Shower Remodels</div>
                             </div>
                             <div class="slide">
                                 <img src="./assets/Shower2.jpg" alt="Shower remodel 2">
@@ -924,22 +939,6 @@
                             <div class="slide">
                                 <img src="./assets/Shower5.jpg" alt="Shower remodel 5">
                             </div>
-                            <div class="slide">
-                                <img src="./assets/Shower6.jpg" alt="Shower remodel 6">
-                            </div>
-                            <div class="slide">
-                                <img src="./assets/Shower7.jpg" alt="Shower remodel 7">
-                            </div>
-                            <div class="slide">
-                                <img src="./assets/Batch2/Bath 1.jpg" alt="Shower remodel 7">
-                            </div>
-                            <div class="slide">
-                                <img src="./assets/Batch2/Bath 2.jpg" alt="Shower remodel 7">
-                            </div>
-                            <div class="slide">
-                                <img src="./assets/Batch2/Bath 3.jpg" alt="Shower remodel 7">
-                            </div>
-
 
                         </div>
 
@@ -984,7 +983,7 @@
         <div class="container">
             <div class="section-head reveal">
                 <div>
-                    <h3>Fencing</h3>
+                    <h3>Fence Installations</h3>
                     <p>Strong, clean installs. Privacy, perimeter, and curb appeal—built to last.</p>
                 </div>
                 <a class="btn" href="tel:912-722-8006"><i class="fa-solid fa-phone"></i> Free Estimate</a>
@@ -992,11 +991,10 @@
 
             <div class="grid-2">
                 <div class="card reveal">
-                    <div class="carousel" data-carousel="fence">
+                    <div class="carousel is-link" data-carousel="fence" data-gallery="fencing">
                         <div class="carousel-track">
                             <div class="slide">
                                 <img src="./assets/Fence1.jpg" alt="Fence project 1">
-                                <div class="caption">Fence Installations</div>
                             </div>
                             <div class="slide">
                                 <img src="./assets/Fence2.jpg" alt="Fence project 2">
@@ -1055,7 +1053,7 @@
     </section>
 
     <!-- CONCRETE WORK -->
-    <section id="fencing">
+    <section id="concrete">
         <div class="container">
             <div class="section-head reveal">
                 <div>
@@ -1067,11 +1065,10 @@
 
             <div class="grid-2">
                 <div class="card reveal">
-                    <div class="carousel" data-carousel="fence">
+                    <div class="carousel is-link" data-carousel="concrete" data-gallery="concrete">
                         <div class="carousel-track">
                             <div class="slide">
                                 <img src="./assets/Batch2/Concrete Work 1.jpg" alt="Fence project 1">
-                                <div class="caption">Concrete Work</div>
                             </div>
                             <div class="slide">
                                 <img src="./assets/Batch2/Concrete Work 2.jpg" alt="Fence project 1">
@@ -1359,6 +1356,18 @@
             $('.carousel').each(function () {
                 initCarousel($(this), { autoplay: true, autoplayMs: 4200 });
             });
+
+            // make entire carousel clickable if it has a data-gallery attribute
+            $('.carousel.is-link').each(function(){
+                const $c = $(this);
+                const cat = $c.data('gallery');
+                if (!cat) return;
+                $c.on('click', function(e){
+                    // skip clicks on controls or dots
+                    if ($(e.target).closest('.car-btn, .dots, .dot').length) return;
+                    window.location.href = `gallery.html?cat=${cat}`;
+                });
+            });
         });
 
         // ----------------------------------------
@@ -1394,6 +1403,32 @@
             }
         }
     </script>
+    <script>
+  // Make carousels clickable -> gallery pages
+  $(function () {
+    const map = {
+      bath: 'bathroom',
+      fence: 'fencing',
+      concrete: 'concrete'
+    };
+
+    $('.carousel').each(function () {
+      const key = $(this).data('carousel'); // e.g. "bath" / "fence"
+      const cat = map[key];
+      if (!cat) return;
+
+      $(this).addClass('is-link');
+
+      // Don't steal clicks from the prev/next buttons or dots
+      $(this).on('click', function (e) {
+        const $t = $(e.target);
+        if ($t.closest('.car-btn, .dots, .dot').length) return;
+
+        window.location.href = `gallery.html?cat=${encodeURIComponent(cat)}`;
+      });
+    });
+  });
+</script>
 </body>
 
 </html>

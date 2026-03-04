@@ -1,0 +1,449 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gallery | C & J Deep Remodels</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+  <style>
+    :root {
+      --navy: #0b1f3a;
+      --navy-2: #0f2c52;
+      --light: #f6f8fb;
+      --sky: #d7e9f6;
+      --tan: #d8c3a5;
+      --ink: #0e1623;
+      --muted: #6a778a;
+      --shadow: 0 12px 30px rgba(11, 31, 58, .12);
+      --ring: 0 0 0 4px rgba(215, 233, 246, .8);
+      --radius: 18px;
+      --max: 1120px;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(1200px 500px at 20% -10%, rgba(215, 233, 246, .75), transparent 60%),
+        radial-gradient(900px 400px at 90% 10%, rgba(216, 195, 165, .45), transparent 55%),
+        var(--light);
+    }
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(var(--max), calc(100% - 40px)); margin: 0 auto; }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(246, 248, 251, .72);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(11, 31, 58, .08);
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 0;
+      gap: 16px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand-mark {
+      width: 40px;
+      height: 40px;
+      border-radius: 14px;
+      background:
+        radial-gradient(14px 14px at 30% 30%, rgba(215, 233, 246, 1), rgba(215, 233, 246, .0)),
+        linear-gradient(140deg, var(--navy), var(--navy-2));
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(255, 255, 255, .45);
+    }
+    .brand h1 {
+      font-size: 1rem;
+      margin: 0;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--navy);
+      line-height: 1.1;
+    }
+    .brand small {
+      display: block;
+      color: var(--muted);
+      font-weight: 600;
+      letter-spacing: .02em;
+      margin-top: 2px;
+      text-transform: none;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: .55rem;
+      padding: .7rem 1rem;
+      border-radius: 999px;
+      border: 1px solid rgba(11, 31, 58, .12);
+      background: rgba(255, 255, 255, .8);
+      box-shadow: 0 10px 22px rgba(11, 31, 58, .08);
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .btn-primary {
+      border-color: rgba(11, 31, 58, .14);
+      background: linear-gradient(140deg, var(--navy), var(--navy-2));
+      color: #fff;
+    }
+
+    main { padding: 26px 0 38px; }
+
+    .page-head {
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap: 14px;
+      margin: 18px 0 14px;
+      flex-wrap: wrap;
+    }
+    .page-head h2 {
+      margin: 0;
+      font-size: clamp(1.6rem, 3.4vw, 2.2rem);
+      letter-spacing: -0.02em;
+      color: var(--navy);
+      line-height: 1.05;
+    }
+    .page-head p {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-weight: 600;
+      max-width: 70ch;
+      line-height: 1.5;
+    }
+
+    /* Gallery cards */
+    .gallery-wrap { display:grid; gap:18px; }
+    .gallery-category {
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, .86);
+      border: 1px solid rgba(11, 31, 58, .10);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .gallery-cat-head {
+      display:flex;
+      align-items:baseline;
+      justify-content:space-between;
+      gap: 12px;
+      padding: 16px 16px 0;
+    }
+    .gallery-cat-head h3 {
+      margin: 0;
+      color: var(--navy);
+      font-size: 1.15rem;
+    }
+    .gallery-cat-head .count {
+      color: var(--muted);
+      font-weight: 700;
+      font-size: .95rem;
+    }
+    .gallery-grid {
+      padding: 14px 16px 16px;
+      display:grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+    @media (max-width: 920px){ .gallery-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+    @media (max-width: 640px){ .gallery-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+    .gallery-item {
+      position: relative;
+      border-radius: 14px;
+      overflow: hidden;
+      background: #e9eff7;
+      border: 1px solid rgba(11, 31, 58, .10);
+      cursor: pointer;
+      aspect-ratio: 4 / 3;
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display:block;
+      transition: transform .18s ease;
+    }
+    .gallery-item:hover img { transform: scale(1.03); }
+    .gallery-item::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background: linear-gradient(to top, rgba(11,31,58,.35), transparent 55%);
+      opacity: 0;
+      transition: opacity .18s ease;
+      pointer-events:none;
+    }
+    .gallery-item:hover::after{ opacity: 1; }
+
+    /* Lightbox */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 15, 25, .78);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      z-index: 999;
+    }
+    .lightbox.is-open { display:flex; }
+    .lightbox-inner {
+      width: min(1100px, 100%);
+      border-radius: 18px;
+      overflow: hidden;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.16);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 18px 50px rgba(0,0,0,.35);
+      position: relative;
+    }
+    .lightbox-img {
+      width: 100%;
+      height: min(72vh, 680px);
+      background: #0b0f18;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .lightbox-img img{
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      display:block;
+    }
+    .lightbox-bar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+      padding: 12px 14px;
+      color: #fff;
+      background: rgba(11,31,58,.45);
+      border-top: 1px solid rgba(255,255,255,.12);
+      font-weight: 700;
+    }
+    .lightbox-bar .meta { opacity: .92; }
+    .lb-btn{
+      width: 42px;
+      height: 42px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.24);
+      background: rgba(255,255,255,.14);
+      color: #fff;
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .lb-btn:hover { background: rgba(255,255,255,.20); }
+    .lb-close{
+      position:absolute;
+      top: 10px;
+      right: 10px;
+      z-index: 2;
+    }
+    .lb-prev{
+      position:absolute;
+      top: 50%;
+      left: 10px;
+      transform: translateY(-50%);
+      z-index: 2;
+    }
+    .lb-next{
+      position:absolute;
+      top: 50%;
+      right: 10px;
+      transform: translateY(-50%);
+      z-index: 2;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div class="nav-inner">
+        <a class="brand" href="index.html">
+          <div class="brand-mark" aria-hidden="true"></div>
+          <div>
+            <h1>C AND J DEEP REMODELS</h1>
+            <small>Fencing and bath remodels</small>
+          </div>
+        </a>
+
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <a class="btn" href="index.html"><i class="fa-solid fa-house"></i> Home</a>
+          <a class="btn btn-primary" href="tel:912-722-8006"><i class="fa-solid fa-phone"></i> 912-722-8006</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="page-head">
+      <div>
+        <h2 id="pageTitle">Gallery</h2>
+        <p id="pageDesc">Browse our work. Click any photo to enlarge.</p>
+      </div>
+
+      <div style="display:flex; gap:10px; flex-wrap:wrap;">
+        <a class="btn" href="gallery.html?cat=bathroom"><i class="fa-regular fa-images"></i> Bathrooms</a>
+        <a class="btn" href="gallery.html?cat=fencing"><i class="fa-regular fa-images"></i> Fencing</a>
+        <a class="btn" href="gallery.html?cat=concrete"><i class="fa-regular fa-images"></i> Concrete</a>
+      </div>
+    </div>
+
+    <div id="galleryRoot" class="gallery-wrap"></div>
+  </main>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <div class="lightbox-inner" role="dialog" aria-modal="true" aria-label="Image preview">
+      <button class="lb-btn lb-close" id="lbClose" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+      <button class="lb-btn lb-prev" id="lbPrev" aria-label="Previous"><i class="fa-solid fa-chevron-left"></i></button>
+      <button class="lb-btn lb-next" id="lbNext" aria-label="Next"><i class="fa-solid fa-chevron-right"></i></button>
+
+      <div class="lightbox-img">
+        <img id="lbImg" alt="">
+      </div>
+      <div class="lightbox-bar">
+        <div class="meta" id="lbMeta"></div>
+        <div style="opacity:.9; font-weight:800;">ESC to close</div>
+      </div>
+    </div>
+  </div>
+
+  <script src="gallery-data.js"></script>
+  <script>
+    function getParam(name) {
+      const u = new URL(window.location.href);
+      return u.searchParams.get(name);
+    }
+
+    function renderCategory(catKey) {
+      const data = window.GALLERY?.[catKey];
+      const $root = $('#galleryRoot');
+      $root.empty();
+
+      if (!data) {
+        $('#pageTitle').text('Gallery');
+        $root.html('<div class="gallery-category"><div class="gallery-cat-head"><h3>Not found</h3><div class="count">Try Bathrooms / Fencing / Concrete</div></div><div style="padding:16px; color: var(--muted); font-weight:700;">Unknown category.</div></div>');
+        return;
+      }
+
+      $('#pageTitle').text(data.title);
+
+      // Flatten for lightbox navigation (all images across all groups in this category)
+      const flat = [];
+      data.groups.forEach(g => g.images.forEach(src => flat.push({ src, group: g.name })));
+
+      // Build sections per group
+      data.groups.forEach(group => {
+        const $card = $(`
+          <section class="gallery-category">
+            <div class="gallery-cat-head">
+              <h3>${group.name}</h3>
+              <div class="count">${group.images.length} photos</div>
+            </div>
+            <div class="gallery-grid"></div>
+          </section>
+        `);
+
+        const $grid = $card.find('.gallery-grid');
+
+        group.images.forEach(src => {
+          const idx = flat.findIndex(x => x.src === src && x.group === group.name);
+          const $item = $(`
+            <div class="gallery-item" role="button" tabindex="0" aria-label="Open photo">
+              <img loading="lazy" src="${src}" alt="${group.name}">
+            </div>
+          `);
+
+          $item.on('click', () => openLightbox(idx, flat));
+          $item.on('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') openLightbox(idx, flat);
+          });
+
+          $grid.append($item);
+        });
+
+        $root.append($card);
+      });
+    }
+
+    // Lightbox
+    let LB = { index: 0, items: [] };
+
+    function openLightbox(i, items) {
+      LB.items = items;
+      LB.index = Math.max(0, Math.min(i, items.length - 1));
+      updateLightbox();
+      $('#lightbox').addClass('is-open').attr('aria-hidden', 'false');
+      $('body').css('overflow', 'hidden');
+    }
+
+    function closeLightbox() {
+      $('#lightbox').removeClass('is-open').attr('aria-hidden', 'true');
+      $('body').css('overflow', '');
+    }
+
+    function updateLightbox() {
+      const item = LB.items[LB.index];
+      if (!item) return;
+      $('#lbImg').attr('src', item.src).attr('alt', item.group);
+      $('#lbMeta').text(`${item.group} • ${LB.index + 1} / ${LB.items.length}`);
+    }
+
+    function prevLightbox() {
+      if (!LB.items.length) return;
+      LB.index = (LB.index - 1 + LB.items.length) % LB.items.length;
+      updateLightbox();
+    }
+
+    function nextLightbox() {
+      if (!LB.items.length) return;
+      LB.index = (LB.index + 1) % LB.items.length;
+      updateLightbox();
+    }
+
+    $(function () {
+      const cat = (getParam('cat') || 'bathroom').toLowerCase();
+      renderCategory(cat);
+
+      $('#lbClose').on('click', closeLightbox);
+      $('#lbPrev').on('click', prevLightbox);
+      $('#lbNext').on('click', nextLightbox);
+
+      // Click outside image closes
+      $('#lightbox').on('click', function (e) {
+        if ($(e.target).is('#lightbox')) closeLightbox();
+      });
+
+      $(document).on('keydown', function (e) {
+        if (!$('#lightbox').hasClass('is-open')) return;
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowLeft') prevLightbox();
+        if (e.key === 'ArrowRight') nextLightbox();
+      });
+    });
+  </script>
+</body>
+</html>

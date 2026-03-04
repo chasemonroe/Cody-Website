@@ -1,0 +1,72 @@
+// gallery-data.js
+window.GALLERY = {
+  bathroom: {
+    title: "Bathroom Remodels",
+    groups: [
+      {
+        name: "Bathroom Remodels",
+        images: [
+          "./assets/Bathroom1.jpg",
+          "./assets/Bathroom2.jpg",
+          "./assets/Bathroom3.jpg",
+          "./assets/Batch2/Bath 1.jpg",
+          "./assets/Batch2/Bath 2.jpg",
+          "./assets/Batch2/Bath 3.jpg",
+        ],
+      },
+      {
+        name: "Shower Remodels",
+        images: [
+          "./assets/Shower1.jpg",
+          "./assets/Shower2.jpg",
+          "./assets/Shower3.jpg",
+          "./assets/Shower4.jpg",
+          "./assets/Shower5.jpg",
+          "./assets/Shower6.jpg",
+          "./assets/Shower7.jpg",
+          "./assets/Batch2/Shower Remodel 2.jpg",
+          "./assets/Batch2/Shower Remodel 3.jpg",
+          "./assets/Batch2/Shower Remodel 4.jpg",
+          "./assets/Batch2/Shower Remodel 5.jpg",
+          "./assets/Batch2/Shower Remodel 6.jpg",
+          "./assets/Batch2/Shower Remodel 7.jpg",
+          "./assets/Batch2/Shower Remodel 8.jpg",
+          "./assets/Batch2/Shower Remodel 9.jpg",
+          "./assets/Batch2/Shower Remodel 10.jpg",
+        ],
+      },
+    ],
+  },
+
+  fencing: {
+    title: "Fencing",
+    groups: [
+      {
+        name: "Fence Installations",
+        images: [
+          "./assets/Fence1.jpg",
+          "./assets/Fence2.jpg",
+          "./assets/Fence3.jpg",
+          "./assets/Fence4.jpg",
+          "./assets/Fence5.jpg",
+          "./assets/Fence6.jpg",
+          "./assets/Fence7.jpg",
+        ],
+      },
+    ],
+  },
+
+  concrete: {
+    title: "Concrete Work",
+    groups: [
+      {
+        name: "Concrete Work",
+        images: [
+          "./assets/Batch2/Concrete Work 1.jpg",
+          "./assets/Batch2/Concrete Work 2.jpg",
+          "./assets/Batch2/Concrete Work 3.jpg",
+        ],
+      },
+    ],
+  },
+};
