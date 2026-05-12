@@ -45,6 +45,14 @@ window.GALLERY = {
       {
         "name": "Fence Installations",
         "images": [
+          "./assets/Fence May 2026 - 1.jpg",
+          "./assets/Fence May 2026 - 2.jpg",
+          "./assets/Fence May 2026 - 3.jpg",
+          "./assets/Fence May 2026 - 4.jpg",
+          "./assets/Fence May 2026 - 5.jpg",
+          "./assets/Fence May 2026 - 6.jpg",
+          "./assets/Fence May 2026 - 7.jpg",
+          "./assets/Fence May 2026 - 8.jpg",
           "./assets/Fence1.jpg",
           "./assets/Fence2.jpg",
           "./assets/Fence3.jpg",
