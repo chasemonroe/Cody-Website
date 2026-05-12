@@ -31,6 +31,8 @@ jobs:
           if [ ! -f release-summary-human.md ]; then echo "# Release Summary" > release-summary-human.md; fi
           if [ ! -f release-notes-technical.md ]; then echo "# Technical Release Notes" > release-notes-technical.md; fi
           ls -la release-*.md
+
+      - name: Upload release note artifacts
         uses: actions/upload-artifact@v4
         with:
           name: release-notes
