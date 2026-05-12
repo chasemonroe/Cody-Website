@@ -132,32 +132,6 @@
       line-height: 1.5;
     }
 
-    .sort-controls {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-    .sort-btn {
-      padding: 0.6rem 1rem;
-      border-radius: 8px;
-      border: 1px solid rgba(11, 31, 58, .12);
-      background: rgba(255, 255, 255, .8);
-      color: var(--navy);
-      font-weight: 600;
-      font-size: 0.9rem;
-      cursor: pointer;
-      transition: all .2s ease;
-    }
-    .sort-btn:hover {
-      border-color: rgba(11, 31, 58, .24);
-      background: rgba(255, 255, 255, 1);
-    }
-    .sort-btn.active {
-      border-color: var(--navy);
-      background: linear-gradient(140deg, var(--navy), var(--navy-2));
-      color: #fff;
-    }
-
     /* Gallery cards */
     .gallery-wrap { display:grid; gap:18px; }
     .gallery-category {
@@ -333,10 +307,6 @@
       </div>
 
       <div style="display:flex; gap:10px; flex-wrap:wrap; flex-direction:column;">
-        <div class="sort-controls" style="display: none;">
-          <button class="sort-btn active" data-sort="alphabetic" id="sortAlpha"><i class="fa-solid fa-arrow-a-z"></i> Alphabetic</button>
-          <button class="sort-btn" data-sort="latest" id="sortLatest"><i class="fa-solid fa-clock"></i> Latest First</button>
-        </div>
         <div style="display:flex; gap:10px; flex-wrap:wrap;">
           <a class="btn" href="gallery.html?cat=bathroom"><i class="fa-regular fa-images"></i> Bathrooms</a>
           <a class="btn" href="gallery.html?cat=fencing"><i class="fa-regular fa-images"></i> Fencing</a>
