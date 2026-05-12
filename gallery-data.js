@@ -10,27 +10,27 @@ window.GALLERY = {
         "images": [
           {
             "src": "./assets/Batch2/Bath 1.jpg",
-            "mtime": 1769383240012
+            "mtime": 1778626823613
           },
           {
             "src": "./assets/Batch2/Bath 2.jpg",
-            "mtime": 1769383255531
+            "mtime": 1778626823613
           },
           {
             "src": "./assets/Batch2/Bath 3.jpg",
-            "mtime": 1769383267958
+            "mtime": 1778626823613
           },
           {
             "src": "./assets/Bathroom1.jpg",
-            "mtime": 1766078121630
+            "mtime": 1778626823625
           },
           {
             "src": "./assets/Bathroom2.jpg",
-            "mtime": 1766078121647
+            "mtime": 1778626823628
           },
           {
             "src": "./assets/Bathroom3.jpg",
-            "mtime": 1766078121636
+            "mtime": 1778626823630
           }
         ]
       },
@@ -39,67 +39,67 @@ window.GALLERY = {
         "images": [
           {
             "src": "./assets/Batch2/Shower Remodel 2.jpg",
-            "mtime": 1769383335984
+            "mtime": 1778626823618
           },
           {
             "src": "./assets/Batch2/Shower Remodel 3.jpg",
-            "mtime": 1769383359869
+            "mtime": 1778626823619
           },
           {
             "src": "./assets/Batch2/Shower Remodel 4.jpg",
-            "mtime": 1769383378575
+            "mtime": 1778626823620
           },
           {
             "src": "./assets/Batch2/Shower Remodel 5.jpg",
-            "mtime": 1769383395822
+            "mtime": 1778626823621
           },
           {
             "src": "./assets/Batch2/Shower Remodel 6.jpg",
-            "mtime": 1769383429938
+            "mtime": 1778626823621
           },
           {
             "src": "./assets/Batch2/Shower Remodel 7.jpg",
-            "mtime": 1769383445726
+            "mtime": 1778626823622
           },
           {
             "src": "./assets/Batch2/Shower Remodel 8.jpg",
-            "mtime": 1769383473184
+            "mtime": 1778626823622
           },
           {
             "src": "./assets/Batch2/Shower Remodel 9.jpg",
-            "mtime": 1769383459803
+            "mtime": 1778626823623
           },
           {
             "src": "./assets/Batch2/Shower Remodel 10.jpg",
-            "mtime": 1769383494860
+            "mtime": 1778626823617
           },
           {
             "src": "./assets/Shower1.jpg",
-            "mtime": 1766078121683
+            "mtime": 1778626823679
           },
           {
             "src": "./assets/Shower2.jpg",
-            "mtime": 1766078121668
+            "mtime": 1778626823681
           },
           {
             "src": "./assets/Shower3.jpg",
-            "mtime": 1766078121663
+            "mtime": 1778626823684
           },
           {
             "src": "./assets/Shower4.jpg",
-            "mtime": 1766078121689
+            "mtime": 1778626823686
           },
           {
             "src": "./assets/Shower5.jpg",
-            "mtime": 1766078121642
+            "mtime": 1778626823688
           },
           {
             "src": "./assets/Shower6.jpg",
-            "mtime": 1766078121723
+            "mtime": 1778626823691
           },
           {
             "src": "./assets/Shower7.jpg",
-            "mtime": 1766078121657
+            "mtime": 1778626823694
           }
         ]
       }
@@ -113,63 +113,63 @@ window.GALLERY = {
         "images": [
           {
             "src": "./assets/Fence May 2026 - 1.jpg",
-            "mtime": 1778622573093
+            "mtime": 1778626823633
           },
           {
             "src": "./assets/Fence May 2026 - 2.jpg",
-            "mtime": 1778622581057
+            "mtime": 1778626823635
           },
           {
             "src": "./assets/Fence May 2026 - 3.jpg",
-            "mtime": 1778622575923
+            "mtime": 1778626823637
           },
           {
             "src": "./assets/Fence May 2026 - 4.jpg",
-            "mtime": 1778622574299
+            "mtime": 1778626823639
           },
           {
             "src": "./assets/Fence May 2026 - 5.jpg",
-            "mtime": 1778622577195
+            "mtime": 1778626823641
           },
           {
             "src": "./assets/Fence May 2026 - 6.jpg",
-            "mtime": 1778622571317
+            "mtime": 1778626823643
           },
           {
             "src": "./assets/Fence May 2026 - 7.jpg",
-            "mtime": 1778622578816
+            "mtime": 1778626823645
           },
           {
             "src": "./assets/Fence May 2026 - 8.jpg",
-            "mtime": 1778622644956
+            "mtime": 1778626823647
           },
           {
             "src": "./assets/Fence1.jpg",
-            "mtime": 1766078121756
+            "mtime": 1778626823651
           },
           {
             "src": "./assets/Fence2.jpg",
-            "mtime": 1766078121707
+            "mtime": 1778626823657
           },
           {
             "src": "./assets/Fence3.jpg",
-            "mtime": 1766078121677
+            "mtime": 1778626823661
           },
           {
             "src": "./assets/Fence4.jpg",
-            "mtime": 1766078121698
+            "mtime": 1778626823666
           },
           {
             "src": "./assets/Fence5.jpg",
-            "mtime": 1766078121734
+            "mtime": 1778626823671
           },
           {
             "src": "./assets/Fence6.jpg",
-            "mtime": 1766078121748
+            "mtime": 1778626823674
           },
           {
             "src": "./assets/Fence7.jpg",
-            "mtime": 1766078121741
+            "mtime": 1778626823677
           }
         ]
       }
@@ -183,15 +183,15 @@ window.GALLERY = {
         "images": [
           {
             "src": "./assets/Batch2/Concrete Work 1.jpg",
-            "mtime": 1769383286833
+            "mtime": 1778626823615
           },
           {
             "src": "./assets/Batch2/Concrete Work 2.jpg",
-            "mtime": 1769383305380
+            "mtime": 1778626823616
           },
           {
             "src": "./assets/Batch2/Concrete Work 3.jpg",
-            "mtime": 1769383318181
+            "mtime": 1778626823617
           }
         ]
       }
