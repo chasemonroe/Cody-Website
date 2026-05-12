@@ -1,0 +1,36 @@
+name: Refresh gallery data
+
+on:
+  push:
+    paths:
+      - "assets/**"
+      - "gallery-sources.json"
+      - "scripts/generate-gallery-data.mjs"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh-gallery-data:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out site
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Generate gallery data
+        run: node scripts/generate-gallery-data.mjs
+
+      - name: Commit gallery data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add gallery-data.js
+          git diff --cached --quiet || git commit -m "Refresh gallery data"
+          git push

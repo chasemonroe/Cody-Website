@@ -1,0 +1,54 @@
+name: Generate Release Notes
+
+on:
+  push:
+    branches: ['**']
+
+jobs:
+  generate:
+    name: Generate and publish release notes
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Run release notes generator
+        run: |
+          node scripts/generate-release-notes.mjs "${{ github.event.before }}" "${{ github.sha }}"
+
+      - name: Upload release note artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-notes
+          path: |
+            release-summary-human.md
+            release-notes-technical.md
+
+      - name: Add to Actions run summary (human)
+        if: always()
+        run: |
+          echo "## Release Summary" >> $GITHUB_STEP_SUMMARY
+          cat release-summary-human.md >> $GITHUB_STEP_SUMMARY
+
+      - name: Add to Actions run summary (technical)
+        if: always()
+        run: |
+          echo "\n## Technical Release Notes" >> $GITHUB_STEP_SUMMARY
+          cat release-notes-technical.md >> $GITHUB_STEP_SUMMARY
+
+      - name: Create draft release for this commit
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: release-${{ github.sha }}
+          release_name: "Release ${{ github.sha }}"
+          body: "$(cat release-summary-human.md)\n\n---\n\nTechnical notes:\n\n$(cat release-notes-technical.md)"
+          draft: true

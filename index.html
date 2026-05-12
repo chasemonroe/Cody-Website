@@ -5,6 +5,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>C & J Deep Remodels</title>
+    <!-- favicon icon for browser tab -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
     <meta name="description" content="C AND J DEEP REMODELS specializes in bathroom remodels and fencing. Clean, modern installs with free estimates. Call 912-722-8006." />
     <meta name="keywords" content="bathroom remodel, shower remodel, fencing, fence installation, home remodeling, C and J Deep Remodels" />
     <meta name="author" content="C & J Deep Remodels" />
@@ -34,6 +36,7 @@
 
     <!-- jQuery (required for carousel logic below) -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="gallery-data.js"></script>
 
     <style>
         :root {
@@ -1352,7 +1355,33 @@
         }
 
         // Initialize all carousels on the page
+        function syncCarouselSlidesFromGallery() {
+            $('.carousel[data-gallery]').each(function () {
+                const $carousel = $(this);
+                const category = window.GALLERY?.[$carousel.data('gallery')];
+                if (!category) return;
+
+                const images = category.groups.flatMap(group =>
+                    group.images.map((src) => ({ src, alt: group.name }))
+                );
+                if (!images.length) return;
+
+                const $track = $carousel.find('.carousel-track');
+                $track.empty();
+
+                images.forEach((image) => {
+                    $track.append(`
+                        <div class="slide">
+                            <img src="${image.src}" alt="${image.alt}">
+                        </div>
+                    `);
+                });
+            });
+        }
+
         $(function () {
+            syncCarouselSlidesFromGallery();
+
             $('.carousel').each(function () {
                 initCarousel($(this), { autoplay: true, autoplayMs: 4200 });
             });

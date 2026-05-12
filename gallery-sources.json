@@ -1,0 +1,36 @@
+{
+  "assetRoot": "assets",
+  "categories": {
+    "bathroom": {
+      "title": "Bathroom Remodels",
+      "groups": [
+        {
+          "name": "Bathroom Remodels",
+          "match": ["bathroom", "bath"]
+        },
+        {
+          "name": "Shower Remodels",
+          "match": ["shower"]
+        }
+      ]
+    },
+    "fencing": {
+      "title": "Fencing",
+      "groups": [
+        {
+          "name": "Fence Installations",
+          "match": ["fence"]
+        }
+      ]
+    },
+    "concrete": {
+      "title": "Concrete Work",
+      "groups": [
+        {
+          "name": "Concrete Work",
+          "match": ["concrete"]
+        }
+      ]
+    }
+  }
+}
