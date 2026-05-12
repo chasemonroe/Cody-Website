@@ -1,4 +1,4 @@
-import { readdir, readFile, writeFile } from "node:fs/promises";
+import { readdir, readFile, writeFile, stat } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -27,18 +27,25 @@ async function listImages(dir) {
       continue;
     }
 
+    const fileStat = await stat(absolutePath);
     const relativePath = path.relative(repoRoot, absolutePath).split(path.sep).join("/");
-    images.push(`./${relativePath}`);
+    images.push({
+      src: `./${relativePath}`,
+      mtime: fileStat.mtime.getTime()
+    });
   }
 
   return images;
 }
 
 function naturalCompare(a, b) {
-  return a.localeCompare(b, undefined, { numeric: true, sensitivity: "base" });
+  const aPath = typeof a === 'string' ? a : a.src;
+  const bPath = typeof b === 'string' ? b : b.src;
+  return aPath.localeCompare(bPath, undefined, { numeric: true, sensitivity: "base" });
 }
 
-function matchesAny(imagePath, matchers) {
+function matchesAny(imageObj, matchers) {
+  const imagePath = typeof imageObj === 'string' ? imageObj : imageObj.src;
   const normalized = imagePath.toLowerCase().replace(/[-_]+/g, " ");
   return matchers.some((matcher) => normalized.includes(matcher.toLowerCase()));
 }
@@ -51,7 +58,7 @@ for (const [categoryKey, category] of Object.entries(config.categories)) {
     title: category.title,
     groups: category.groups.map((group) => ({
       name: group.name,
-      images: allImages.filter((imagePath) => matchesAny(imagePath, group.match || []))
+      images: allImages.filter((imageObj) => matchesAny(imageObj, group.match || []))
     }))
   };
 }

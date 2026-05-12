@@ -132,6 +132,32 @@
       line-height: 1.5;
     }
 
+    .sort-controls {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .sort-btn {
+      padding: 0.6rem 1rem;
+      border-radius: 8px;
+      border: 1px solid rgba(11, 31, 58, .12);
+      background: rgba(255, 255, 255, .8);
+      color: var(--navy);
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all .2s ease;
+    }
+    .sort-btn:hover {
+      border-color: rgba(11, 31, 58, .24);
+      background: rgba(255, 255, 255, 1);
+    }
+    .sort-btn.active {
+      border-color: var(--navy);
+      background: linear-gradient(140deg, var(--navy), var(--navy-2));
+      color: #fff;
+    }
+
     /* Gallery cards */
     .gallery-wrap { display:grid; gap:18px; }
     .gallery-category {
@@ -306,10 +332,16 @@
         <p id="pageDesc">Browse our work. Click any photo to enlarge.</p>
       </div>
 
-      <div style="display:flex; gap:10px; flex-wrap:wrap;">
-        <a class="btn" href="gallery.html?cat=bathroom"><i class="fa-regular fa-images"></i> Bathrooms</a>
-        <a class="btn" href="gallery.html?cat=fencing"><i class="fa-regular fa-images"></i> Fencing</a>
-        <a class="btn" href="gallery.html?cat=concrete"><i class="fa-regular fa-images"></i> Concrete</a>
+      <div style="display:flex; gap:10px; flex-wrap:wrap; flex-direction:column;">
+        <div class="sort-controls">
+          <button class="sort-btn active" data-sort="alphabetic" id="sortAlpha"><i class="fa-solid fa-arrow-a-z"></i> Alphabetic</button>
+          <button class="sort-btn" data-sort="latest" id="sortLatest"><i class="fa-solid fa-clock"></i> Latest First</button>
+        </div>
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <a class="btn" href="gallery.html?cat=bathroom"><i class="fa-regular fa-images"></i> Bathrooms</a>
+          <a class="btn" href="gallery.html?cat=fencing"><i class="fa-regular fa-images"></i> Fencing</a>
+          <a class="btn" href="gallery.html?cat=concrete"><i class="fa-regular fa-images"></i> Concrete</a>
+        </div>
       </div>
     </div>
 
@@ -335,9 +367,29 @@
 
   <script src="gallery-data.js"></script>
   <script>
+    let currentSort = 'alphabetic';
+
     function getParam(name) {
       const u = new URL(window.location.href);
       return u.searchParams.get(name);
+    }
+
+    function sortImages(images, sortMode) {
+      const arr = [...images];
+      if (sortMode === 'latest') {
+        arr.sort((a, b) => {
+          const aMtime = typeof a === 'string' ? 0 : (a.mtime || 0);
+          const bMtime = typeof b === 'string' ? 0 : (b.mtime || 0);
+          return bMtime - aMtime;
+        });
+      } else {
+        arr.sort((a, b) => {
+          const aPath = typeof a === 'string' ? a : a.src;
+          const bPath = typeof b === 'string' ? b : b.src;
+          return aPath.localeCompare(bPath, undefined, { numeric: true, sensitivity: 'base' });
+        });
+      }
+      return arr;
     }
 
     function renderCategory(catKey) {
@@ -355,10 +407,17 @@
 
       // Flatten for lightbox navigation (all images across all groups in this category)
       const flat = [];
-      data.groups.forEach(g => g.images.forEach(src => flat.push({ src, group: g.name })));
+      data.groups.forEach(g => {
+        const sorted = sortImages(g.images, currentSort);
+        sorted.forEach(img => {
+          const src = typeof img === 'string' ? img : img.src;
+          flat.push({ src, group: g.name });
+        });
+      });
 
       // Build sections per group
       data.groups.forEach(group => {
+        const sorted = sortImages(group.images, currentSort);
         const $card = $(`
           <section class="gallery-category">
             <div class="gallery-cat-head">
@@ -371,7 +430,8 @@
 
         const $grid = $card.find('.gallery-grid');
 
-        group.images.forEach(src => {
+        sorted.forEach(img => {
+          const src = typeof img === 'string' ? img : img.src;
           const idx = flat.findIndex(x => x.src === src && x.group === group.name);
           const $item = $(`
             <div class="gallery-item" role="button" tabindex="0" aria-label="Open photo">
@@ -429,6 +489,17 @@
     $(function () {
       const cat = (getParam('cat') || 'bathroom').toLowerCase();
       renderCategory(cat);
+
+      // Sort button listeners
+      $('.sort-btn').on('click', function () {
+        const sortMode = $(this).data('sort');
+        currentSort = sortMode;
+        
+        $('.sort-btn').removeClass('active');
+        $(this).addClass('active');
+        
+        renderCategory(cat);
+      });
 
       $('#lbClose').on('click', closeLightbox);
       $('#lbPrev').on('click', prevLightbox);
