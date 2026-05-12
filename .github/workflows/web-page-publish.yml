@@ -1,0 +1,52 @@
+name: Web Page Publish
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    name: Publish website
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Check out site
+        uses: actions/checkout@v4
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload website files
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+      - name: Deploy website
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: Publish summary
+        env:
+          COMMIT_MESSAGE: ${{ github.event.head_commit.message || 'Manual publish' }}
+        run: |
+          {
+            echo "## Web Page Publish"
+            echo ""
+            echo "- Commit: ${{ github.sha }}"
+            printf -- "- Message: %s\n" "$COMMIT_MESSAGE"
+            echo "- URL: ${{ steps.deployment.outputs.page_url }}"
+          } >> "$GITHUB_STEP_SUMMARY"
