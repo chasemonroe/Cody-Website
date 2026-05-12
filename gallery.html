@@ -333,7 +333,7 @@
       </div>
 
       <div style="display:flex; gap:10px; flex-wrap:wrap; flex-direction:column;">
-        <div class="sort-controls">
+        <div class="sort-controls" style="display: none;">
           <button class="sort-btn active" data-sort="alphabetic" id="sortAlpha"><i class="fa-solid fa-arrow-a-z"></i> Alphabetic</button>
           <button class="sort-btn" data-sort="latest" id="sortLatest"><i class="fa-solid fa-clock"></i> Latest First</button>
         </div>
@@ -367,7 +367,7 @@
 
   <script src="gallery-data.js"></script>
   <script>
-    let currentSort = 'alphabetic';
+    let currentSort = 'latest';
 
     function getParam(name) {
       const u = new URL(window.location.href);
@@ -489,17 +489,6 @@
     $(function () {
       const cat = (getParam('cat') || 'bathroom').toLowerCase();
       renderCategory(cat);
-
-      // Sort button listeners
-      $('.sort-btn').on('click', function () {
-        const sortMode = $(this).data('sort');
-        currentSort = sortMode;
-        
-        $('.sort-btn').removeClass('active');
-        $(this).addClass('active');
-        
-        renderCategory(cat);
-      });
 
       $('#lbClose').on('click', closeLightbox);
       $('#lbPrev').on('click', prevLightbox);
