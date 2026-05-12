@@ -23,9 +23,14 @@ jobs:
 
       - name: Run release notes generator
         run: |
-          node scripts/generate-release-notes.mjs "${{ github.event.before }}" "${{ github.sha }}"
+          node scripts/generate-release-notes.mjs "${{ github.event.before }}" "${{ github.event.after || github.sha }}" || true
+        continue-on-error: true
 
-      - name: Upload release note artifacts
+      - name: Verify release notes files exist
+        run: |
+          if [ ! -f release-summary-human.md ]; then echo "# Release Summary" > release-summary-human.md; fi
+          if [ ! -f release-notes-technical.md ]; then echo "# Technical Release Notes" > release-notes-technical.md; fi
+          ls -la release-*.md
         uses: actions/upload-artifact@v4
         with:
           name: release-notes

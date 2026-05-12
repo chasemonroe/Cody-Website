@@ -4,12 +4,16 @@ import fs from 'fs';
 
 function run(cmd) {
   try {
+    console.error(`Running: ${cmd}`);
     return execSync(cmd, { encoding: 'utf8' }).trim();
   } catch (e) {
+    console.error(`Command failed: ${cmd}`);
+    console.error(`Error: ${e.message}`);
     return '';
   }
 }
 
+try {
 const before = process.argv[2] || '';
 const after = process.argv[3] || run('git rev-parse HEAD');
 
@@ -100,11 +104,16 @@ if (commitLines.length === 0) {
 
   techMd += '---\n\n';
   techMd += '### Diffstat\n\n';
-  techMd += '```
-' + (diffStat || 'no diffstat available') + '\n```\n';
+  techMd += '```\n' + (diffStat || 'no diffstat available') + '\n```\n';
 }
 
-fs.writeFileSync('release-summary-human.md', humanMd, 'utf8');
-fs.writeFileSync('release-notes-technical.md', techMd, 'utf8');
-
-console.log('Release notes generated: release-summary-human.md, release-notes-technical.md');
+  fs.writeFileSync('release-summary-human.md', humanMd, 'utf8');
+  fs.writeFileSync('release-notes-technical.md', techMd, 'utf8');
+  console.log('Release notes generated: release-summary-human.md, release-notes-technical.md');
+} catch (e) {
+  console.error('Fatal error generating release notes:', e.message);
+  // Create empty files so workflow doesn't fail at cat step
+  fs.writeFileSync('release-summary-human.md', `# Release notes generation failed\n\n${e.message}\n`, 'utf8');
+  fs.writeFileSync('release-notes-technical.md', `# Release notes generation failed\n\n${e.message}\n`, 'utf8');
+  process.exit(1);
+}
