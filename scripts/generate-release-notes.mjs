@@ -99,8 +99,7 @@ if (commitLines.length === 0) {
 
   humanMd += '---\n\n';
   humanMd += '### Diffstat\n\n';
-  humanMd += '```
-' + (diffStat || 'no diffstat available') + '\n```\n';
+  humanMd += '```\n' + (diffStat || 'no diffstat available') + '\n```\n';
 
   techMd += '---\n\n';
   techMd += '### Diffstat\n\n';

@@ -350,7 +350,7 @@
         arr.sort((a, b) => {
           const aMtime = typeof a === 'string' ? 0 : (a.mtime || 0);
           const bMtime = typeof b === 'string' ? 0 : (b.mtime || 0);
-          return bMtime - aMtime;
+          return aMtime - bMtime;
         });
       } else {
         arr.sort((a, b) => {

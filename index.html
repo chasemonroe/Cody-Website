@@ -1362,7 +1362,10 @@
                 if (!category) return;
 
                 const images = category.groups.flatMap(group =>
-                    group.images.map((src) => ({ src, alt: group.name }))
+                    group.images.map((image) => {
+                        const src = typeof image === 'string' ? image : image.src;
+                        return { src, alt: group.name };
+                    })
                 );
                 if (!images.length) return;
 
