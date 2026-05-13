@@ -29,7 +29,7 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
 
     <!-- Font Awesome (social icons) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
@@ -65,7 +65,7 @@
 
         body {
             margin: 0;
-            font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+            font-family: Manrope, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
             color: var(--ink);
             background:
                 radial-gradient(1200px 500px at 20% -10%, rgba(215, 233, 246, .75), transparent 60%),
@@ -135,6 +135,7 @@
         }
 
         .brand h1 {
+            font-family: Sora, Manrope, system-ui, sans-serif;
             font-size: 1rem;
             margin: 0;
             letter-spacing: .12em;
@@ -302,33 +303,47 @@
 
         /* Hero */
         .hero {
-            padding: 46px 0 18px;
+            min-height: min(560px, calc(100vh - 170px));
+            padding: 42px 0 34px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            background:
+                linear-gradient(90deg, rgba(11, 31, 58, .88), rgba(11, 31, 58, .62) 46%, rgba(11, 31, 58, .18)),
+                linear-gradient(to bottom, rgba(11, 31, 58, .12), rgba(11, 31, 58, .18)),
+                url("./assets/Fence May 2026 - 6.jpg") center / cover no-repeat;
+            color: #fff;
+            overflow: hidden;
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            inset: auto 0 0;
+            height: 34%;
+            background: linear-gradient(to bottom, transparent, rgba(246, 248, 251, .96));
+            pointer-events: none;
+        }
+
+        .hero .container {
+            position: relative;
+            z-index: 1;
         }
 
         .hero-grid {
             display: grid;
-            grid-template-columns: 1.2fr .8fr;
-            gap: 18px;
-            align-items: stretch;
+            grid-template-columns: minmax(0, 1.15fr) minmax(300px, .62fr);
+            gap: 28px;
+            align-items: center;
         }
 
         .hero-card {
-            border-radius: calc(var(--radius) + 8px);
-            background: linear-gradient(135deg, rgba(255, 255, 255, .9), rgba(255, 255, 255, .72));
-            border: 1px solid rgba(11, 31, 58, .10);
-            box-shadow: var(--shadow);
-            padding: 28px;
+            padding: 18px 0;
             position: relative;
-            overflow: hidden;
         }
 
         .hero-card::before {
-            content: "";
-            position: absolute;
-            inset: -2px;
-            background: radial-gradient(520px 260px at 20% 20%, rgba(215, 233, 246, .9), transparent 55%),
-                radial-gradient(520px 260px at 90% 10%, rgba(216, 195, 165, .55), transparent 55%);
-            pointer-events: none;
+            content: none;
         }
 
         .hero-card>* {
@@ -337,18 +352,21 @@
 
         .hero h2 {
             margin: 12px 0 10px;
-            font-size: clamp(1.8rem, 4vw, 2.7rem);
-            letter-spacing: -0.02em;
-            color: var(--navy);
-            line-height: 1.05;
+            font-family: Sora, Manrope, system-ui, sans-serif;
+            font-size: clamp(2.15rem, 4.7vw, 3.85rem);
+            letter-spacing: 0;
+            color: #fff;
+            line-height: .98;
+            max-width: 13ch;
+            text-shadow: 0 18px 40px rgba(0, 0, 0, .30);
         }
 
         .hero p {
             margin: 0 0 18px;
-            color: rgba(14, 22, 35, .78);
-            font-size: 1.05rem;
+            color: rgba(255, 255, 255, .86);
+            font-size: 1.08rem;
             line-height: 1.6;
-            max-width: 62ch;
+            max-width: 56ch;
         }
 
         .hero-actions {
@@ -358,24 +376,19 @@
         }
 
         .hero-side {
-            border-radius: calc(var(--radius) + 8px);
-            background: linear-gradient(140deg, var(--navy), var(--navy-2));
-            box-shadow: 0 18px 40px rgba(11, 31, 58, .22);
+            border-radius: 18px;
+            background: rgba(11, 31, 58, .66);
+            box-shadow: 0 24px 58px rgba(0, 0, 0, .28);
             color: #fff;
             padding: 24px;
-            border: 1px solid rgba(255, 255, 255, .18);
+            border: 1px solid rgba(255, 255, 255, .20);
             position: relative;
             overflow: hidden;
+            backdrop-filter: blur(14px);
         }
 
         .hero-side::after {
-            content: "";
-            position: absolute;
-            inset: -30px;
-            background: radial-gradient(420px 220px at 10% 20%, rgba(215, 233, 246, .35), transparent 60%),
-                radial-gradient(520px 260px at 100% 0%, rgba(216, 195, 165, .25), transparent 60%);
-            pointer-events: none;
-            transform: rotate(6deg);
+            content: none;
         }
 
         .hero-side>* {
@@ -384,6 +397,7 @@
 
         .hero-side h3 {
             margin: 0 0 8px;
+            font-family: Sora, Manrope, system-ui, sans-serif;
             font-size: 1.15rem;
             letter-spacing: .06em;
             text-transform: uppercase;
@@ -418,11 +432,35 @@
             font-weight: 600;
         }
 
+        .hero .pill,
+        .hero .btn:not(.btn-primary),
+        .hero .tag {
+            background: rgba(255, 255, 255, .88);
+            color: var(--navy);
+        }
+
+        .hero .tag.tan {
+            background: rgba(216, 195, 165, .86);
+            color: var(--navy);
+        }
+
         /* Sections */
         section {
-            padding: 28px 0;
+            padding: 34px 0;
             scroll-margin-top: 90px;
             /* ensures anchor scroll doesn't hide behind sticky nav */
+        }
+
+        .service-band {
+            margin: 28px 0;
+            padding: 58px 0;
+            background: rgba(255, 255, 255, .52);
+            border-top: 1px solid rgba(11, 31, 58, .08);
+            border-bottom: 1px solid rgba(11, 31, 58, .08);
+        }
+
+        .service-band-alt {
+            background: rgba(215, 233, 246, .34);
         }
 
         .section-head {
@@ -435,8 +473,9 @@
 
         .section-head h3 {
             margin: 0;
+            font-family: Sora, Manrope, system-ui, sans-serif;
             font-size: 1.6rem;
-            letter-spacing: -0.01em;
+            letter-spacing: 0;
             color: var(--navy);
         }
 
@@ -455,6 +494,16 @@
             align-items: start;
         }
 
+        .service-band .grid-2 {
+            grid-template-columns: minmax(0, 1.08fr) minmax(300px, .92fr);
+            gap: 24px;
+            align-items: center;
+        }
+
+        .service-band-alt .grid-2 .media-card {
+            order: 2;
+        }
+
         .card {
             border-radius: var(--radius);
             background: rgba(255, 255, 255, .86);
@@ -465,6 +514,23 @@
 
         .card-pad {
             padding: 18px;
+        }
+
+        .service-copy {
+            background: rgba(255, 255, 255, .70);
+        }
+
+        .service-copy .card-pad {
+            padding: 24px;
+        }
+
+        .media-card {
+            border-radius: calc(var(--radius) + 8px);
+        }
+
+        .media-card .carousel {
+            border: 0;
+            border-radius: calc(var(--radius) + 8px);
         }
 
         .list {
@@ -723,12 +789,42 @@
 
         /* Responsive */
         @media (max-width: 920px) {
+            .hero {
+                min-height: auto;
+                align-items: flex-end;
+                padding: 46px 0 34px;
+                background:
+                    linear-gradient(to bottom, rgba(11, 31, 58, .52), rgba(11, 31, 58, .88)),
+                    url("./assets/Batch2/Shower Remodel 2.jpg") center / cover no-repeat;
+            }
+
             .hero-grid {
                 grid-template-columns: 1fr;
             }
 
+            .hero-side {
+                display: none;
+            }
+
+            .hero h2 {
+                max-width: 12ch;
+            }
+
             .grid-2 {
                 grid-template-columns: 1fr;
+            }
+
+            .service-band {
+                margin: 18px 0;
+                padding: 38px 0;
+            }
+
+            .service-band .grid-2 {
+                grid-template-columns: 1fr;
+            }
+
+            .service-band-alt .grid-2 .media-card {
+                order: 0;
             }
 
             .contact-grid {
@@ -762,11 +858,32 @@
             }
 
             .hero-card {
-                padding: 22px;
+                padding: 14px 0 0;
             }
 
             .hero-side {
                 padding: 20px;
+            }
+
+            .hero h2 {
+                font-size: clamp(1.85rem, 8.5vw, 2.35rem);
+            }
+
+            .hero p {
+                font-size: .96rem;
+                line-height: 1.42;
+            }
+
+            .hero-actions {
+                gap: 8px;
+            }
+
+            .hero-actions .btn {
+                padding: .62rem .86rem;
+            }
+
+            .hero .tags {
+                display: none;
             }
 
             .slide {
@@ -874,7 +991,7 @@
     </main>
 
     <!-- BATHROOM -->
-    <section id="bathroom">
+    <section id="bathroom" class="service-band">
         <div class="container">
             <div class="section-head reveal">
                 <div>
@@ -886,7 +1003,7 @@
             </div>
 
             <div class="grid-2">
-                <div class="card reveal">
+                <div class="card media-card reveal">
                     <div class="carousel is-link" data-carousel="bath" data-gallery="bathroom" data-group-priority="Shower Remodels,Bathroom Remodels">
                         <div class="carousel-track">
                             <div class="slide">
@@ -953,7 +1070,7 @@
                     </div>
                 </div>
 
-                <div class="card reveal">
+                <div class="card service-copy reveal">
                     <div class="card-pad">
                         <h4 style="margin:0 0 10px; color: var(--navy); font-size: 1.2rem;">What we can help with</h4>
                         <ul class="list">
@@ -982,7 +1099,7 @@
     </section>
 
     <!-- FENCING -->
-    <section id="fencing">
+    <section id="fencing" class="service-band service-band-alt">
         <div class="container">
             <div class="section-head reveal">
                 <div>
@@ -993,7 +1110,7 @@
             </div>
 
             <div class="grid-2">
-                <div class="card reveal">
+                <div class="card media-card reveal">
                     <div class="carousel is-link" data-carousel="fence" data-gallery="fencing">
                         <div class="carousel-track">
                             <div class="slide">
@@ -1027,7 +1144,7 @@
                     </div>
                 </div>
 
-                <div class="card reveal">
+                <div class="card service-copy reveal">
                     <div class="card-pad">
                         <h4 style="margin:0 0 10px; color: var(--navy); font-size: 1.2rem;">Fence options</h4>
                         <ul class="list">
@@ -1056,7 +1173,7 @@
     </section>
 
     <!-- CONCRETE WORK -->
-    <section id="concrete">
+    <section id="concrete" class="service-band">
         <div class="container">
             <div class="section-head reveal">
                 <div>
@@ -1067,7 +1184,7 @@
             </div>
 
             <div class="grid-2">
-                <div class="card reveal">
+                <div class="card media-card reveal">
                     <div class="carousel is-link" data-carousel="concrete" data-gallery="concrete">
                         <div class="carousel-track">
                             <div class="slide">
@@ -1089,7 +1206,7 @@
                     </div>
                 </div>
 
-                <div class="card reveal">
+                <div class="card service-copy reveal">
                     <div class="card-pad">
                         <h4 style="margin:0 0 10px; color: var(--navy); font-size: 1.2rem;">Concrete Options</h4>
                         <ul class="list">
